@@ -1,14 +1,17 @@
 import { formatNumber } from '../utils/format'
+import { Link } from 'react-router-dom'
+import { Button, Container, Nav, Navbar } from 'react-bootstrap'
 
-const Navbar = () => {
+const Navigation = () => {
   const total = 19850
   const token = false
   return (
-    <nav className='bg-dark text-light p-3 d-flex'>
-      <div className='container-fluid'>
-        <div className='d-flex'>
-          <h3 className='mx-3'>Pizzeria Pastene</h3>
-          <p className='btn btn-success mx-1'>🍕 Inicio</p>
+    <Navbar bg='dark' variant='dark'>
+      <Container>
+        <Navbar.Brand as={Link} to='/'>Pizzería Pastene
+        </Navbar.Brand>
+        <Nav>
+          <Nav.Link as={Link} to='/'>Inicio</Nav.Link>
           {token
             ? (
               <>
@@ -18,17 +21,21 @@ const Navbar = () => {
               )
             : (
               <>
-                <p className='btn btn-success mx-1'>🔐 Ingresar</p>
-                <p className='btn btn-success mx-1'>🔐 Registrarse</p>
+                <Nav.Link as={Link} to='/Login'>Iniciar Sesión</Nav.Link>
+                <Nav.Link as={Link} to='/Register'>Registrarse</Nav.Link>
               </>
               )}
-          <div>
-            <p className='btn btn-outline-light nav-end total'>🛒 Total: {formatNumber(total)}</p>
-          </div>
+        </Nav>
+        <div className='d-flex text-end ms-auto'>
+
+          <Link to='/cart'>
+            <Button variant='success' className='ms-auto'>Carrito <span>{formatNumber(total)}</span>
+            </Button>
+          </Link>
         </div>
-      </div>
-    </nav>
+      </Container>
+    </Navbar>
   )
 }
 
-export default Navbar
+export default Navigation
