@@ -1,22 +1,27 @@
-import Cart from './assets/components/Cart'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Cart from './assets/pages/Cart'
 import Footer from './assets/components/Footer'
-import Home from './assets/components/Home'
-import LoginPage from './assets/components/LoginPage'
-import Navbar from './assets/components/Navbar'
-import Pizza from './assets/components/Pizza'
-import RegisterPage from './assets/components/RegisterPage'
+import Home from './assets/pages/Home'
+import LoginPage from './assets/pages/LoginPage'
+import Navigation from './assets/components/Navbar'
+import RegisterPage from './assets/pages/RegisterPage'
+import NotFound from './assets/components/NotFound'
 
 const App = () => {
   return (
-    <>
-      <Navbar />
-      {/* <Home /> */}
-      {/* <RegisterPage /> */}
-      {/* <LoginPage /> */}
-      {/* <Cart /> */}
-      <Pizza />
-      <Footer />
-    </>
+    <div className='d-flex flex-column min-vh-100'>
+      <BrowserRouter>
+        <Navigation />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/register' element={<RegisterPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </div>
   )
 }
 
