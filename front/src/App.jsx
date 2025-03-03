@@ -6,6 +6,8 @@ import LoginPage from './assets/pages/LoginPage'
 import Navigation from './assets/components/Navbar'
 import RegisterPage from './assets/pages/RegisterPage'
 import NotFound from './assets/components/NotFound'
+import Profile from './assets/components/Profile'
+import Pizza from './assets/pages/Pizza'
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/pizza/p001' element={<Pizza />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />
