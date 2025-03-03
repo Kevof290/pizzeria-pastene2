@@ -13,9 +13,9 @@ const NotFound = () => {
         />
         <h1 className='display-4 fw-bold text-dark'>¡Oops! Página no encontrada</h1>
         <p className='lead text-secondary mb-4'>
-          Parece que la página que estás buscando no existe o ha sido movida.
+          Parece que la página que estás buscando no existe.
         </p>
-        <Link to='/' className='btn btn-primary btn-lg'>
+        <Link to='/' className='btn btn-success btn-lg'>
           Volver al inicio
         </Link>
       </div>
