@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Toaster, toast } from 'sonner'
+import { Link } from 'react-router-dom'
+import { Button } from 'react-bootstrap'
 const LoginPage = () => {
   const [login, setLogin] = useState({
     email: '',
@@ -60,11 +62,11 @@ const LoginPage = () => {
                     placeholder='Ingresa tu contraseña'
                   />
                 </div>
-                <div className='d-grid'>
-                  <button type='submit' className='btn btn-success w-50 mx-auto'>
+                <Link to='/profile' className='d-flex justify-content-center'>
+                  <Button variant='success' className='me-md-2'>
                     Iniciar Sesión
-                  </button>
-                </div>
+                  </Button>
+                </Link>
               </form>
             </div>
           </div>
