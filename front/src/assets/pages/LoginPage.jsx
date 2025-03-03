@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { Toaster, toast } from 'sonner'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 const LoginPage = () => {
   const [login, setLogin] = useState({
     email: '',
     password: ''
   })
+
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value })
@@ -23,7 +25,12 @@ const LoginPage = () => {
       toast.error('La contraseña debe tener al menos 6 caracteres')
       return
     }
-    toast.success('Sesión iniciada correctamente')
+    if (email === 'snoopy@pizzas.com' && password === 'pizzarocks') {
+      toast.success('Sesión iniciada correctamente')
+      navigate('/profile')
+    } else {
+      toast.error('Credenciales incorrectas')
+    }
   }
   return (
     <div className='container mt-5'>
@@ -62,11 +69,11 @@ const LoginPage = () => {
                     placeholder='Ingresa tu contraseña'
                   />
                 </div>
-                <Link to='/profile' className='d-flex justify-content-center'>
-                  <Button variant='success' className='me-md-2'>
+                <div className='d-flex justify-content-center'>
+                  <Button variant='success' type='submit' className='me-md-2'>
                     Iniciar Sesión
                   </Button>
-                </Link>
+                </div>
               </form>
             </div>
           </div>
