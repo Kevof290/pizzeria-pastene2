@@ -21,8 +21,8 @@ const Navigation = () => {
               )
             : (
               <>
-                <Nav.Link as={Link} to='/Login'>Iniciar Sesión</Nav.Link>
-                <Nav.Link as={Link} to='/Register'>Registrarse</Nav.Link>
+                <Nav.Link as={Link} to='/login'>Iniciar Sesión</Nav.Link>
+                <Nav.Link as={Link} to='/register'>Registrarse</Nav.Link>
               </>
               )}
         </Nav>
