@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { pizzaCart } from '../utils/pizzas'
 import { formatNumber } from '../utils/format'
-import '../components/Cart.css'
+import '../styles/Cart.css'
 
 const Cart = () => {
   const [cart, setCart] = useState(pizzaCart)

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CardPizza from '../components/CardPizza'
 import { formatNumber } from '../utils/format'
-import '../components/Home.css'
+import '../styles/Home.css'
 
 const Home = () => {
   const [pizzas, setPizzas] = useState([])
