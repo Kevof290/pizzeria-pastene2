@@ -7,9 +7,8 @@ const App = () => {
     <div className='d-flex flex-column min-vh-100'>
       <BrowserRouter>
         <Navigation />
-        <Header />
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<><Header /><Home /></>} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/cart' element={<Cart />} />
