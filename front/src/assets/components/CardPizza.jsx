@@ -1,5 +1,14 @@
 import PropTypes from 'prop-types'
-const CardPizza = ({ img, ingredients, name, price }) => {
+import { Button } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
+
+const CardPizza = ({ img, ingredients, name, price, addToCart }) => {
+  const navigate = useNavigate()
+
+  const handleAddToCart = () => {
+    addToCart()
+    navigate('/cart')
+  }
   return (
     <main className='col-md-4'>
       <div className='card shadow-sm mb-3'>
@@ -13,8 +22,11 @@ const CardPizza = ({ img, ingredients, name, price }) => {
             ))}
           </ul>
         </div>
-        <div className='card-footer d-grid'>
-          <button className='btn btn-dark'>Comprar</button>
+        <div className='card-footer d-flex justify-content-around'>
+          <Button variant='success' onClick={handleAddToCart}>Comprar</Button>
+          <Button variant='success' onClick={addToCart}>
+            Agregar al carrito
+          </Button>
         </div>
       </div>
     </main>
@@ -25,6 +37,7 @@ CardPizza.propTypes = {
   img: PropTypes.string.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired
+  price: PropTypes.number.isRequired,
+  addToCart: PropTypes.func.isRequired
 }
 export default CardPizza
