@@ -1,9 +1,13 @@
 import { formatNumber } from '../utils/format'
 import { Link } from 'react-router-dom'
-import { Button, Container, Nav, Navbar } from 'react-bootstrap'
+import { Button, Container, Nav, Navbar, Badge } from 'react-bootstrap'
+import { useContext } from 'react'
+import { CartContext } from '../store/CartContext'
 
 const Navigation = () => {
-  const total = 19850
+  const { cart } = useContext(CartContext)
+  const total = cart.reduce((acc, { price, count }) => acc + price * count, 0)
+  const itemCount = cart.reduce((acc, { count }) => acc + count, 0)
   const token = false
   return (
     <Navbar bg='dark' variant='dark'>
@@ -29,7 +33,12 @@ const Navigation = () => {
         <div className='d-flex text-end ms-auto'>
 
           <Link to='/cart'>
-            <Button variant='success' className='ms-auto'>Carrito <span>{formatNumber(total)}</span>
+            <Button variant='outline-success' className='ms-auto'>Carrito <span>{formatNumber(total)}</span>
+              {itemCount > 0 && (
+                <Badge pill bg='danger' className='ms-2'>
+                  {itemCount}
+                </Badge>
+              )}
             </Button>
           </Link>
         </div>
