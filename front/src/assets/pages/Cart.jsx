@@ -24,9 +24,9 @@ const Cart = () => {
                   {pizza.name.toUpperCase()} - {formatNumber(pizza.price)}
                 </div>
                 <div>
-                  <button className='btn btn-sm btn-danger mx-2' onClick={() => decreaseCount(pizza.id)}>-</button>
+                  <button className='btn btn-sm btn-outline-danger mx-2 fs-5' onClick={() => decreaseCount(pizza.id)}>-</button>
                   <span className='fs-5'>{pizza.count}</span>
-                  <button className='btn btn-sm btn-success mx-2' onClick={() => increaseCount(pizza.id)}>+</button>
+                  <button className='btn btn-sm btn-outline-success mx-2 fs-5' onClick={() => increaseCount(pizza.id)}>+</button>
                 </div>
               </li>
             ))}
