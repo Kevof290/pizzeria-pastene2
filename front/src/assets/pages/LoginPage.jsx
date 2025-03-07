@@ -1,13 +1,15 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Toaster, toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
+import { AuthContext } from '../store/AuthContext'
+
 const LoginPage = () => {
   const [login, setLogin] = useState({
     email: '',
     password: ''
   })
-
+  const { login: authenticate } = useContext(AuthContext)
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -27,6 +29,7 @@ const LoginPage = () => {
     }
     if (email === 'snoopy@pizzas.com' && password === 'pizzarocks') {
       toast.success('Sesión iniciada correctamente')
+      authenticate()
       navigate('/profile')
     } else {
       toast.error('Credenciales incorrectas')
