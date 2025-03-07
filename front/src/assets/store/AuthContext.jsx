@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useMemo, useState } from 'react'
 
 export const AuthContext = createContext()
 
@@ -13,11 +13,11 @@ const AuthProvider = ({ children }) => {
     setIsAuthenticated(false)
   }
 
-  const stateGlobal = {
+  const stateGlobal = useMemo(() => ({
     isAuthenticated,
     login,
     logout
-  }
+  }), [isAuthenticated, login, logout])
 
   return (
     <AuthContext.Provider value={stateGlobal}>
