@@ -1,10 +1,13 @@
 import React, { useContext } from 'react'
 import { CartContext } from '../store/CartContext'
+import { AuthContext } from '../store/AuthContext'
 import { formatNumber } from '../utils/format'
 import '../styles/Cart.css'
 
 const Cart = () => {
   const { cart, increaseCount, decreaseCount } = useContext(CartContext)
+
+  const { isAuthenticated } = useContext(AuthContext)
 
   const total = cart.reduce((acc, { price, count }) => acc + price * count, 0)
 
@@ -34,7 +37,7 @@ const Cart = () => {
           )}
       <div className='my-5 text-end'>
         <h3>Total: {formatNumber(total)}</h3>
-        <button className='btn btn-success'>Pagar</button>
+        <button className='btn btn-success' disabled={!isAuthenticated}>Pagar</button>
       </div>
     </div>
   )
