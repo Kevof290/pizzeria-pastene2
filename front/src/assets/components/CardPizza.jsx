@@ -2,12 +2,15 @@ import PropTypes from 'prop-types'
 import { Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
-const CardPizza = ({ img, ingredients, name, price, addToCart }) => {
+const CardPizza = ({ id, img, ingredients, name, price, addToCart }) => {
   const navigate = useNavigate()
 
-  const handleAddToCart = () => {
+  const handleBuyNow = () => {
     addToCart()
     navigate('/cart')
+  }
+  const seeMore = () => {
+    navigate(`/pizza/${id}`)
   }
   return (
     <main className='col-md-4'>
@@ -23,10 +26,11 @@ const CardPizza = ({ img, ingredients, name, price, addToCart }) => {
           </ul>
         </div>
         <div className='card-footer d-flex justify-content-around'>
-          <Button variant='success' onClick={handleAddToCart}>Comprar</Button>
+          <Button variant='dark' onClick={handleBuyNow}>Comprar</Button>
           <Button variant='success' onClick={addToCart}>
             Agregar al carrito
           </Button>
+          <Button variant='success' onClick={seeMore}>Ver más</Button>
         </div>
       </div>
     </main>
@@ -34,6 +38,7 @@ const CardPizza = ({ img, ingredients, name, price, addToCart }) => {
 }
 
 CardPizza.propTypes = {
+  id: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
   name: PropTypes.string.isRequired,
