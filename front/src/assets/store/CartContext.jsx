@@ -35,13 +35,17 @@ const CartProvider = ({ children }) => {
         .filter((pizza) => pizza.count > 0)
     )
   }
+  const clearCart = () => {
+    setCart([])
+  }
 
   const stateGlobal = useMemo(() => ({
     cart,
     addToCart,
     increaseCount,
-    decreaseCount
-  }), [cart, addToCart, increaseCount, decreaseCount])
+    decreaseCount,
+    clearCart
+  }), [cart, addToCart, increaseCount, decreaseCount, clearCart])
 
   return (
     <CartContext.Provider value={stateGlobal}>
