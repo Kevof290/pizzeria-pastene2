@@ -15,7 +15,7 @@ const LoginPage = () => {
   const handleChange = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value })
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     const { email, password } = login
@@ -27,12 +27,16 @@ const LoginPage = () => {
       toast.error('La contraseña debe tener al menos 6 caracteres')
       return
     }
-    if (email === 'snoopy@pizzas.com' && password === 'pizzarocks') {
-      toast.success('Sesión iniciada correctamente')
-      authenticate()
-      navigate('/profile')
-    } else {
-      toast.error('Credenciales incorrectas')
+    try {
+      const token = await authenticate(email, password)
+      if (token) {
+        toast.success('Sesión iniciada correctamente')
+        navigate('/profile')
+      } else {
+        toast.error('Credenciales incorrectas')
+      }
+    } catch (error) {
+      toast.error(error.message)
     }
   }
   return (

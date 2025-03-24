@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Toaster, toast } from 'sonner'
+import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../store/AuthContext'
 const RegisterPage = () => {
   const [register, setRegister] = useState({
     email: '',
@@ -7,10 +9,13 @@ const RegisterPage = () => {
     confirmPassword: ''
   })
 
+  const { register: registerUser } = useContext(AuthContext)
+  const navigate = useNavigate()
+
   const handleChange = (e) => {
     setRegister({ ...register, [e.target.name]: e.target.value })
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     const { email, password, confirmPassword } = register
@@ -22,11 +27,17 @@ const RegisterPage = () => {
       toast.error('La contraseña debe tener al menos 6 caracteres')
       return
     }
-    if (password !== confirmPassword) {
-      toast.error('Las contraseñas no coinciden')
-      return
+    try {
+      const token = await registerUser(email, password)
+      if (token) {
+        toast.success('Registro exitoso')
+        navigate('/profile')
+      } else {
+        toast.error('Error al registrar')
+      }
+    } catch (error) {
+      toast.error(error.message)
     }
-    toast.success('Gracias por registrarte!')
   }
   return (
     <div className='container mt-5'>
