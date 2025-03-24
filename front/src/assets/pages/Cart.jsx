@@ -3,13 +3,32 @@ import { CartContext } from '../store/CartContext'
 import { AuthContext } from '../store/AuthContext'
 import { formatNumber } from '../utils/format'
 import '../styles/Cart.css'
+import axios from 'axios'
+import { toast } from 'sonner'
 
 const Cart = () => {
-  const { cart, increaseCount, decreaseCount } = useContext(CartContext)
-
-  const { isAuthenticated } = useContext(AuthContext)
+  const { cart, increaseCount, decreaseCount, clearCart } = useContext(CartContext)
+  const { token, isAuthenticated } = useContext(AuthContext)
 
   const total = cart.reduce((acc, { price, count }) => acc + price * count, 0)
+
+  const handleCheckout = async () => {
+    try {
+      const res = await axios.post('http://localhost:5000/api/checkouts', { cart }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      if (res.status === 200) {
+        toast.success('Pago procesado correctamente')
+        clearCart() // Vaciar el carrito después de una compra exitosa
+      } else {
+        toast.error('Error al procesar el pago')
+      }
+    } catch (error) {
+      toast.error('Error al procesar el pago')
+    }
+  }
 
   return (
     <div className='container mt-5'>
@@ -37,7 +56,7 @@ const Cart = () => {
           )}
       <div className='my-5 text-end'>
         <h3>Total: {formatNumber(total)}</h3>
-        <button className='btn btn-success' disabled={!isAuthenticated}>Pagar</button>
+        <button className='btn btn-success' disabled={!isAuthenticated} onClick={handleCheckout}>Pagar</button>
       </div>
     </div>
   )
