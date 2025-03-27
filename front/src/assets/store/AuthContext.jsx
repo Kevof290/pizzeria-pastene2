@@ -53,6 +53,7 @@ const AuthProvider = ({ children }) => {
   const isAuthenticated = useMemo(() => !!token, [token])
 
   const stateGlobal = useMemo(() => ({
+    token,
     isAuthenticated,
     login,
     register,
