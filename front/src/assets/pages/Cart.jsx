@@ -4,7 +4,7 @@ import { AuthContext } from '../store/AuthContext'
 import { formatNumber } from '../utils/format'
 import '../styles/Cart.css'
 import axios from 'axios'
-import { toast } from 'sonner'
+import { toast, Toaster } from 'sonner'
 
 const Cart = () => {
   const { cart, increaseCount, decreaseCount, clearCart } = useContext(CartContext)
@@ -14,17 +14,16 @@ const Cart = () => {
 
   const handleCheckout = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/api/checkouts', { cart }, {
+      console.log('Token:', token)
+      await axios.post('http://localhost:5000/api/checkouts', { cart }, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
-      if (res.status === 200) {
-        toast.success('Pago procesado correctamente')
-        clearCart() // Vaciar el carrito después de una compra exitosa
-      } else {
-        toast.error('Error al procesar el pago')
-      }
+
+      toast.success('¡Compra realizada con éxito!')
+
+      clearCart()
     } catch (error) {
       toast.error('Error al procesar el pago')
     }
@@ -33,6 +32,7 @@ const Cart = () => {
   return (
     <div className='container mt-5'>
       <h2>Carrito de Compras</h2>
+      <Toaster position='bottom-right' richColors expand />
       {cart.length === 0
         ? (
           <p>No hay elementos en el carrito.</p>
